@@ -12,8 +12,25 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Blog App",
+  title: "Hello JStack",
   description: "Next.js blog application",
+  icons: {
+    icon: [
+      {
+        url: "/justa-kun.ico",
+        sizes: "any",
+      },
+      {
+        url: "/justa-kun.png",
+        type: "image/png",
+        sizes: "32x32",
+      },
+    ],
+    apple: {
+      url: "/apple-touch-icon.png",
+      sizes: "180x180",
+    },
+  },
 };
 
 export default function RootLayout({

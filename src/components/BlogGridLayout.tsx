@@ -13,7 +13,6 @@ export default async function BlogGridLayout() {
       <div className="flex flex-col items-start justify-between gap-4 mb-8 md:flex-row md:items-center">
         <div>
           <h2 className="text-3xl font-bold tracking-tight">最新の記事</h2>
-          <p className="text-muted-foreground mt-2">私たちのブログで最新の情報とインサイトをチェックしましょう</p>
         </div>
         {posts.length > 6 &&
           <Button variant="outline" className="hidden md:flex" asChild>

@@ -10,37 +10,82 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useTheme } from "next-themes";
 import { Moon, Sun } from "lucide-react";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 
 export default function Header() {
   const { theme, setTheme } = useTheme();
+  const pathname = usePathname();
+
+  const navItems = [
+    { href: "/", label: "Home" },
+    { href: "/blog", label: "Blog" },
+    { href: "/about", label: "About" },
+  ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <motion.header
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+    >
       <div className="container flex h-14 max-w-screen-2xl items-center">
-        {/* ロゴ */}
-        <Link href="/" className="flex items-center space-x-2 px-4 xl:px-8">
-          <span className="font-bold text-[30px]">Hello JStack!</span>
+        <Link 
+          href="/" 
+          className="flex items-center space-x-2 px-4 xl:px-8 transition-transform hover:scale-105"
+          aria-label="ホームページへ"
+        >
+          <Image 
+            src="/justa-kun.png"
+            width={40}
+            height={40}
+            alt="サイトのロゴ"
+            className="object-contain"
+            quality={95}
+          />
+          <span className="font-bold text-[30px] hidden sm:inline">Hello JStack!</span>
         </Link>
 
-        {/* 右側のドロップダウンメニュー */}
         <div className="flex flex-1 items-center justify-end space-x-2">
-          <Link href="/" className="flex items-center xl:px-8 sm:px-6">
-            <span className="font-bold">Home</span>
-          </Link>
-          <Link href="/blog" className="flex items-center xl:px-8 sm:px-6">
-            <span className="font-bold">Blog</span>
-          </Link>
-          <Link href="/about" className="flex items-center xl:px-8 sm:px-6">
-            <span className="font-bold">About</span>
-          </Link>
+          <nav className="hidden md:flex items-center space-x-4">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`relative px-4 py-2 font-medium transition-colors hover:text-foreground/80
+                  ${pathname === item.href ? "text-foreground" : "text-foreground/60"} hover:scale-105
+                `}
+              >
+                {pathname === item.href && (
+                  <motion.span
+                    layoutId="underline"
+                    className="absolute left-0 top-full block h-px w-full bg-foreground"
+                  />
+                )}
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon">
-                {theme === "dark" ? (
-                  <Moon className="h-5 w-5" />
-                ) : (
-                  <Sun className="h-5 w-5" />
-                )}
+              <Button 
+                variant="ghost" 
+                size="icon"
+                aria-label={theme === "dark" ? "ライトモードに切り替え" : "ダークモードに切り替え"}
+              >
+                <motion.div
+                  initial={{ scale: 0.5, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {theme === "dark" ? (
+                    <Moon className="h-5 w-5" />
+                  ) : (
+                    <Sun className="h-5 w-5" />
+                  )}
+                </motion.div>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
@@ -56,6 +101,6 @@ export default function Header() {
           </DropdownMenu>
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 }

@@ -2,6 +2,7 @@
 const nextConfig = {
   images: {
     domains: ['www.notion.so', 'images.notion.so'],
+    unoptimized: true,
   },
 }
 

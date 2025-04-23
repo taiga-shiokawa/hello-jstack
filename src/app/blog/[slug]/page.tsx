@@ -6,6 +6,7 @@ import { Metadata } from "next";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 import Markdown from "react-markdown";
+import remarkGfm from 'remark-gfm';
 
 export const revalidate = 3600; // 1時間ごとに再検証
 
@@ -64,8 +65,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <time dateTime={post.publishedAt}>
             {format(new Date(post.publishedAt), 'yyyy年MM月dd日', { locale: ja })}
           </time>
-          <span>•</span>
-          <span>{post.readTime}分で読めます</span>
         </div>
 
         <div className="flex gap-2 mb-8">
@@ -80,7 +79,27 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </div>
 
         <div className="prose prose-lg dark:prose-invert max-w-none">
-          <Markdown>{post.content}</Markdown>
+          <Markdown 
+            remarkPlugins={[remarkGfm]}
+            components={{
+              a: ({ href, children }) => (
+                <Link href={href || ''} className="text-primary hover:underline">
+                  {children}
+                </Link>
+              ),
+              h1: ({ children }) => (
+                <h1 className="text-3xl font-bold mt-8 mb-4">{children}</h1>
+              ),
+              h2: ({ children }) => (
+                <h2 className="text-2xl font-bold mt-6 mb-3">{children}</h2>
+              ),
+              h3: ({ children }) => (
+                <h3 className="text-xl font-bold mt-4 mb-2">{children}</h3>
+              ),
+            }}
+          >
+            {post.content}
+          </Markdown>
         </div>
       </div>
     </article>

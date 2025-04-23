@@ -23,7 +23,6 @@ export function BlogCard({
   publishedAt,
   slug,
   tags,
-  readTime,
   coverImage,
 }: BlogCardProps) {
   return (
@@ -65,8 +64,6 @@ export function BlogCard({
           <time dateTime={publishedAt}>
             {format(new Date(publishedAt), 'yyyy年MM月dd日', { locale: ja })}
           </time>
-          <span className="mx-2">•</span>
-          <span>{readTime}分で読めます</span>
         </div>
       </CardContent>
     </Card>
