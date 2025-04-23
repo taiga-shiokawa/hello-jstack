@@ -12,8 +12,34 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Hello JStack",
-  description: "Next.js blog application",
+  title: {
+    default: "Hello JStack",
+    template: "%s | Hello JStack",
+  },
+  description: "JavaScript blog application",
+  metadataBase: new URL('https://hello-jstack.vercel.app/'), // あなたのドメインに変更してください
+  openGraph: {
+    title: "Hello JStack",
+    description: "Next.js blog application",
+    url: 'https://hello-jstack.vercel.app/',
+    siteName: 'Hello JStack',
+    type: 'website',
+    images: [
+      {
+        url: '/og-default.png',
+        width: 1200,
+        height: 630,
+        alt: 'Hello JStack',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Hello JStack',
+    description: 'Next.js blog application',
+    creator: '@hell_jstack', // あなたのTwitterハンドルに変更してください
+    images: ['/og-default.png'],
+  },
   icons: {
     icon: [
       {

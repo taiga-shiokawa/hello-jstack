@@ -25,9 +25,36 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     };
   }
 
+  const ogImage = post.coverImage || '/og-default.png'; // デフォルトのOG画像を設定
+
   return {
     title: post.title,
     description: post.summary,
+    openGraph: {
+      title: post.title,
+      description: post.summary,
+      type: 'article',
+      publishedTime: post.publishedAt,
+      authors: ['JStack'],
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.summary,
+      images: [ogImage],
+      creator: '@your_twitter_handle', // あなたのTwitterハンドルに変更してください
+    },
+    alternates: {
+      canonical: `https://hello-jstack.vercel.app/${params.slug}`, // あなたのドメインに変更してください
+    },
   };
 }
 
