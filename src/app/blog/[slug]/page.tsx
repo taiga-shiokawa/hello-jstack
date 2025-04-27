@@ -87,6 +87,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         )}
         
         <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
+
+        <h2 className="text-[26px] font-bold mb-4 pt-10">{post.summary}</h2>
         
         <div className="flex items-center gap-4 text-muted-foreground mb-8">
           <time dateTime={post.publishedAt}>
