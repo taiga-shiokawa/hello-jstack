@@ -6,7 +6,7 @@ import { getAllPosts } from "@/lib/notion"
 
 export default async function BlogGridLayout() {
   const posts = await getAllPosts();
-  const latestPosts = posts.slice(0, 6); // 最新の6件を表示
+  const latestPosts = posts.slice(0, 6);
 
   return (
     <section className="container py-12 md:py-16 lg:py-20">
